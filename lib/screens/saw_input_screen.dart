@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/criteria_model.dart'; // Assuming models are in lib/models
-import '../models/alternative_model.dart'; // Assuming models are in lib/models
+import '../criteria_model.dart';
+import '../alternative_model.dart';
 // Mengimpor halaman hasil dan service yang dibutuhkan
-import 'saw_result_screen.dart'; // Assuming this file is in the same directory
-import '../services/saw_service.dart'; // Assuming services are in lib/services
+import 'saw_result_screen.dart';
+import '../saw_service.dart';
 
 class SawInputScreen extends StatefulWidget {
   const SawInputScreen({super.key});

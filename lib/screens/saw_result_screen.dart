@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/alternative_model.dart'; // Assuming models are in lib/models
+import '../alternative_model.dart';
 
 class SawResultScreen extends StatelessWidget {
   final List<Alternative> results;

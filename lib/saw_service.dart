@@ -1,7 +1,7 @@
 // services/saw_service.dart
 import 'dart:math';
-import '../models/alternative_model.dart'; // Assuming models are in lib/models
-import '../models/criteria_model.dart'; // Assuming models are in lib/models
+import './alternative_model.dart';
+import './criteria_model.dart';
 
 class SawService {
   List<Alternative> calculate(
@@ -20,12 +20,12 @@ class SawService {
       if (crit.type == CriteriaType.benefit) {
         double maxValue = columnValues.reduce(max);
         // Handle division by zero if max value is 0
-        normalizedMatrix[crit.id] = columnValues.map((val) => maxValue == 0 ? 0 : val / maxValue).toList();
+        normalizedMatrix[crit.id] = columnValues.map((val) => maxValue == 0 ? 0.0 : val / maxValue).toList();
       } else {
         // CriteriaType.cost
         double minValue = columnValues.reduce(min);
         // Handle division by zero if a value is 0
-        normalizedMatrix[crit.id] = columnValues.map((val) => val == 0 ? 0 : minValue / val).toList();
+        normalizedMatrix[crit.id] = columnValues.map((val) => val == 0 ? 0.0 : minValue / val).toList();
       }
     }
 
