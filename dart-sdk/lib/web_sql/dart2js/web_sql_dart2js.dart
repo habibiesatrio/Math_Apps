@@ -261,7 +261,7 @@ class SqlResultSetRowList extends JavaScriptObject
 
   @override
   Map get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('Map', '#[0]', this);
     }
     throw StateError("No elements");

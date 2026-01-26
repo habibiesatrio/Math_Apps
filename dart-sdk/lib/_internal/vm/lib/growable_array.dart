@@ -238,6 +238,7 @@ class _GrowableList<T> extends ListBase<T> {
   @pragma("vm:external-name", "GrowableList_getLength")
   external int get length;
 
+  @override
   set length(int newLength) {
     if (newLength > length) {
       // Verify that element type is nullable.

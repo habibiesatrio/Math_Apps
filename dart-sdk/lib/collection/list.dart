@@ -72,6 +72,7 @@ abstract mixin class ListBase<E> implements List<E> {
     return this[0];
   }
 
+  @override
   set first(E value) {
     if (length == 0) throw IterableElementError.noElement();
     this[0] = value;
@@ -83,6 +84,7 @@ abstract mixin class ListBase<E> implements List<E> {
     return this[length - 1];
   }
 
+  @override
   set last(E value) {
     if (length == 0) throw IterableElementError.noElement();
     this[length - 1] = value;

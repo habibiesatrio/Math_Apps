@@ -142,6 +142,7 @@ class _HttpHeaders implements HttpHeaders {
   @override
   bool get persistentConnection => _persistentConnection;
 
+  @override
   set persistentConnection(bool persistentConnection) {
     _checkMutable();
     if (persistentConnection == _persistentConnection) return;
@@ -171,6 +172,7 @@ class _HttpHeaders implements HttpHeaders {
   @override
   int get contentLength => _contentLength;
 
+  @override
   set contentLength(int contentLength) {
     _checkMutable();
     if (protocolVersion == "1.0" &&
@@ -197,6 +199,7 @@ class _HttpHeaders implements HttpHeaders {
   @override
   bool get chunkedTransferEncoding => _chunkedTransferEncoding;
 
+  @override
   set chunkedTransferEncoding(bool chunkedTransferEncoding) {
     _checkMutable();
     if (chunkedTransferEncoding && protocolVersion == "1.0") {
@@ -222,6 +225,7 @@ class _HttpHeaders implements HttpHeaders {
   @override
   String? get host => _host;
 
+  @override
   set host(String? host) {
     _checkMutable();
     _host = host;
@@ -231,6 +235,7 @@ class _HttpHeaders implements HttpHeaders {
   @override
   int? get port => _port;
 
+  @override
   set port(int? port) {
     _checkMutable();
     _port = port;
@@ -251,6 +256,7 @@ class _HttpHeaders implements HttpHeaders {
     return null;
   }
 
+  @override
   set ifModifiedSince(DateTime? ifModifiedSince) {
     _checkMutable();
     if (ifModifiedSince == null) {
@@ -276,6 +282,7 @@ class _HttpHeaders implements HttpHeaders {
     return null;
   }
 
+  @override
   set date(DateTime? date) {
     _checkMutable();
     if (date == null) {
@@ -301,6 +308,7 @@ class _HttpHeaders implements HttpHeaders {
     return null;
   }
 
+  @override
   set expires(DateTime? expires) {
     _checkMutable();
     if (expires == null) {
@@ -322,6 +330,7 @@ class _HttpHeaders implements HttpHeaders {
     }
   }
 
+  @override
   set contentType(ContentType? contentType) {
     _checkMutable();
     if (contentType == null) {

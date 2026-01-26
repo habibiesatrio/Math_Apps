@@ -486,9 +486,7 @@ class ServerSocket {
   @patch
   static Future<ServerSocket> _bind(
     address,
-    int port, {
-    bool v6Only = false,
-  }) {
+    int port) {
     throw UnsupportedError("ServerSocket.bind");
   }
 }
@@ -522,18 +520,14 @@ class Socket {
   @patch
   static Future<Socket> _connect(
     dynamic host,
-    int port, {
-    int sourcePort = 0,
-  }) {
+    int port) {
     throw UnsupportedError("Socket constructor");
   }
 
   @patch
   static Future<ConnectionTask<Socket>> _startConnect(
     dynamic host,
-    int port, {
-    int sourcePort = 0,
-  }) {
+    int port) {
     throw UnsupportedError("Socket constructor");
   }
 }

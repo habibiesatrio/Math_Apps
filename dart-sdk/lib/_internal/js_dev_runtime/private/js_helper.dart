@@ -88,18 +88,16 @@ class Primitives {
       return null;
     }
     var decimalMatch = match[decimalIndex];
-    if (radix == null) {
-      if (decimalMatch != null) {
-        // Cannot fail because we know that the digits are all decimal.
-        return JS<int>('!', r'parseInt(#, 10)', source);
-      }
-      if (match[hexIndex] != null) {
-        // Cannot fail because we know that the digits are all hex.
-        return JS<int>('!', r'parseInt(#, 16)', source);
-      }
-      return null;
+    if (decimalMatch != null) {
+      // Cannot fail because we know that the digits are all decimal.
+      return JS<int>('!', r'parseInt(#, 10)', source);
     }
-    @notNull
+    if (match[hexIndex] != null) {
+      // Cannot fail because we know that the digits are all hex.
+      return JS<int>('!', r'parseInt(#, 16)', source);
+    }
+    return null;
+      @notNull
     var radix = radix;
     if (radix < 2 || radix > 36) {
       throw RangeError.range(radix, 2, 36, 'radix');

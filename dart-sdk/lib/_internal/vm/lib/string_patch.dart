@@ -20,7 +20,6 @@ class String {
     int? end,
   ]) {
     // TODO: Remove these null checks once all code is opted into strong nonnullable mode.
-    if (start == null) throw ArgumentError.notNull("start");
     return _StringBase.createFromCharCodes(charCodes, start, end, null);
   }
 
@@ -669,8 +668,6 @@ abstract final class _StringBase implements String {
   }
 
   String replaceAll(Pattern pattern, String replacement) {
-    if (replacement == null) throw ArgumentError.notNull("replacement");
-
     int startIndex = 0;
     // String fragments that replace the prefix [this] up to [startIndex].
     List matches = [];
@@ -763,7 +760,6 @@ abstract final class _StringBase implements String {
   );
 
   String replaceAllMapped(Pattern pattern, String Function(Match match) replace) {
-    if (replace == null) throw ArgumentError.notNull("replace");
     List matches = [];
     int length = 0;
     int startIndex = 0;
@@ -797,7 +793,6 @@ abstract final class _StringBase implements String {
     String Function(Match match) replace, [
     int startIndex = 0,
   ]) {
-    if (replace == null) throw ArgumentError.notNull("replace");
     RangeError.checkValueInInterval(startIndex, 0, length, "startIndex");
 
     var matches = pattern.allMatches(this, startIndex).iterator;

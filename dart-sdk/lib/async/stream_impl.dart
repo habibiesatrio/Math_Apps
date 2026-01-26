@@ -613,6 +613,7 @@ class _DelayedDone implements _DelayedEvent {
   @override
   _DelayedEvent? get next => null;
 
+  @override
   set next(_DelayedEvent? _) {
     throw StateError("No events after a done.");
   }

@@ -1871,6 +1871,7 @@ final class _ArraySize<T extends NativeType> implements Array<T> {
   int? get _nestedDimensionsFirstCache =>
       throw UnsupportedError('_ArraySize._nestedDimensionsFirstCache');
 
+  @override
   set _nestedDimensionsFirstCache(int? _) {
     throw UnsupportedError('_ArraySize._nestedDimensionsFirstCache');
   }
@@ -1883,6 +1884,7 @@ final class _ArraySize<T extends NativeType> implements Array<T> {
   int? get _nestedDimensionsFlattenedCache =>
       throw UnsupportedError('_ArraySize._nestedDimensionsFlattenedCache');
 
+  @override
   set _nestedDimensionsFlattenedCache(int? _) {
     throw UnsupportedError('_ArraySize._nestedDimensionsFlattenedCache');
   }
@@ -1895,6 +1897,7 @@ final class _ArraySize<T extends NativeType> implements Array<T> {
   List<int>? get _nestedDimensionsRestCache =>
       throw UnsupportedError('_ArraySize._nestedDimensionsRestCache');
 
+  @override
   set _nestedDimensionsRestCache(List<int>? _) {
     throw UnsupportedError('_ArraySize._nestedDimensionsRestCache');
   }

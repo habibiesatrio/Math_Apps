@@ -89,7 +89,7 @@ class int {
     return _parseRadix(source, radix, start, end, sign, false, onError);
   }
 
-  static void _kNull(_) => null;
+  static void _kNull(_) {}
 
   static int? _handleFormatError(
     int? Function(String)? onError,

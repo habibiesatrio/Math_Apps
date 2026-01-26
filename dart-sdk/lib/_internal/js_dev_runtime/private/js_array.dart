@@ -621,6 +621,7 @@ class JSArray<E> extends JavaScriptObject
   @notNull
   int get length => JS<int>('!', r'#.length', this);
 
+  @override
   set length(@nullCheck int newLength) {
     checkGrowable('set length');
     // TODO(sra): Remove this test and let JavaScript throw an error.
@@ -701,7 +702,7 @@ class JSArray<E> extends JavaScriptObject
 
   @override
   int lastIndexWhere(bool Function(E) test, [int? start]) {
-    start ??= this.length - 1;
+    start ??= length - 1;
     if (start < 0) return -1;
     for (int i = start; i >= 0; i--) {
       if (test(this[i])) return i;
@@ -709,11 +710,13 @@ class JSArray<E> extends JavaScriptObject
     return -1;
   }
 
+  @override
   set first(E element) {
     if (isEmpty) throw IndexError.withLength(0, length, indexable: this);
     this[0] = element;
   }
 
+  @override
   set last(E element) {
     if (isEmpty) throw IndexError.withLength(0, length, indexable: this);
     this[length - 1] = element;

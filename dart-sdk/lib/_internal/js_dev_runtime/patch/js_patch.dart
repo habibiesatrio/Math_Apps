@@ -24,8 +24,7 @@ class JsObject {
   final Object _jsObject;
 
   // This should only be called from _wrapToDart
-  JsObject._fromJs(this._jsObject) {
-  }
+  JsObject._fromJs(this._jsObject);
 
   @patch
   factory JsObject(JsFunction constructor, [List? arguments]) {

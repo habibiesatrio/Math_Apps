@@ -292,10 +292,6 @@ class _StreamHandlerTransformer<S, T> extends _StreamSinkTransformer<S, T> {
          );
        });
 
-  @override
-  Stream<T> bind(Stream<S> stream) {
-    return super.bind(stream);
-  }
 }
 
 /// A StreamTransformer that overrides [StreamTransformer.bind] with a callback.

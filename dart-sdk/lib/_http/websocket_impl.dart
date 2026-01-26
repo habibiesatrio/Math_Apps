@@ -1326,6 +1326,7 @@ class _WebSocketImpl extends Stream with _ServiceObject implements WebSocket {
   @override
   Duration? get pingInterval => _pingInterval;
 
+  @override
   set pingInterval(Duration? interval) {
     if (_writeClosed) return;
     _pingTimer?.cancel();

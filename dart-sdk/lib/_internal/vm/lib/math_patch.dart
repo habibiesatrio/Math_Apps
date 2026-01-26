@@ -222,7 +222,7 @@ class _Random implements Random {
     }
 
     int rnd32;
-    var result;
+    int result;
     do {
       _nextState();
       rnd32 = _state & 0xFFFFFFFF;
@@ -298,7 +298,7 @@ class _SecureRandom implements Random {
       return 0; // Not random if max == 1.
     }
     int rnd;
-    var result;
+    int result;
     do {
       rnd = _getBytes(byteCount);
       result = rnd % max;

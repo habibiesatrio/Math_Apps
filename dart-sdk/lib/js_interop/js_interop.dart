@@ -37,7 +37,6 @@ library;
 import 'dart:_internal' show Since;
 import 'dart:_js_annotations' show JSExport;
 import 'dart:_js_types';
-import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 
 // To support an easier transition, we allow users to use `@staticInterop`

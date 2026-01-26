@@ -1678,7 +1678,7 @@ final class NativeFloat32x4 implements Float32x4 {
       w = _truncate(w) {
     // We would prefer to check for `double` but in dart2js we can't see the
     // difference anyway.
-    if (y is! num) throw ArgumentError(y);
+    
   }
 
   NativeFloat32x4.splat(double value) : this(value, value, value, value);
@@ -2337,7 +2337,7 @@ final class NativeFloat64x2 implements Float64x2 {
   static final Uint32List _uint32View = _list.buffer.asUint32List();
 
   NativeFloat64x2(this.x, this.y) {
-    if (y is! num) throw ArgumentError(y);
+    
   }
 
   NativeFloat64x2.splat(double v) : this(v, v);

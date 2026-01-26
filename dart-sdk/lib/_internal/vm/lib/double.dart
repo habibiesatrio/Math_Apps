@@ -224,9 +224,6 @@ final class _Double implements double {
 
   num clamp(num lowerLimit, num upperLimit) {
     // TODO: Remove these null checks once all code is opted into strong nonnullable mode.
-    if (upperLimit == null) {
-      throw ArgumentError.notNull("upperLimit");
-    }
     if (lowerLimit.compareTo(upperLimit) > 0) {
       throw ArgumentError(lowerLimit);
     }

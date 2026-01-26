@@ -14,27 +14,27 @@ part of dart.io;
 @pragma('vm:entry-point')
 abstract class _EmbedderConfig {
   /// Whether the isolate may set [Directory.current].
-  static final bool _mayChdir = true;
+  static const bool _mayChdir = true;
 
   /// Whether the isolate may call [exit].
   @pragma("vm:entry-point")
-  static final bool _mayExit = true;
+  static const bool _mayExit = true;
 
   // Whether the isolate may set [Stdin.echoMode].
   @pragma('vm:entry-point')
-  static final bool _maySetEchoMode = true;
+  static const bool _maySetEchoMode = true;
 
   // Whether the isolate may set [Stdin.echoNewlineMode].
   @pragma('vm:entry-point')
-  static final bool _maySetEchoNewlineMode = true;
+  static const bool _maySetEchoNewlineMode = true;
 
   // Whether the isolate may set [Stdin.lineMode].
   @pragma('vm:entry-point')
-  static final bool _maySetLineMode = true;
+  static const bool _maySetLineMode = true;
 
   /// Whether the isolate may call [sleep].
   @pragma('vm:entry-point')
-  static final bool _maySleep = true;
+  static const bool _maySleep = true;
 
   // TODO(zra): Consider adding:
   // - an option to disallow modifying SecurityContext.defaultContext

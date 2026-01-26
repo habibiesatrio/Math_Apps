@@ -384,8 +384,6 @@ final class JsonEncoder extends Converter<Object?, String> {
   }
 
   // Override the base class's bind, to provide a better type.
-  @override
-  Stream<String> bind(Stream<Object?> stream) => super.bind(stream);
 
   @override
   Converter<Object?, T> fuse<T>(Converter<String, T> other) {
@@ -518,10 +516,6 @@ final class JsonUtf8Encoder extends Converter<Object?, List<int>> {
   }
 
   // Override the base class's bind, to provide a better type.
-  @override
-  Stream<List<int>> bind(Stream<Object?> stream) {
-    return super.bind(stream);
-  }
 }
 
 /// Implements the chunked conversion from object to its JSON representation.
@@ -665,8 +659,6 @@ final class JsonDecoder extends Converter<String, Object?> {
   external StringConversionSink startChunkedConversion(Sink<Object?> sink);
 
   // Override the base class's bind, to provide a better type.
-  @override
-  Stream<Object?> bind(Stream<String> stream) => super.bind(stream);
 }
 
 // Internal optimized JSON parsing implementation.

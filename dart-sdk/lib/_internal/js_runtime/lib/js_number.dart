@@ -198,7 +198,6 @@ final class JSNumber extends Interceptor implements double {
 
   @override
   num clamp(lowerLimit, upperLimit) {
-    if (upperLimit is! num) throw argumentErrorValue(upperLimit);
     if (lowerLimit.compareTo(upperLimit) > 0) {
       throw argumentErrorValue(lowerLimit);
     }
@@ -567,9 +566,6 @@ final class JSInt extends JSNumber implements int, TrustedGetRuntimeType {
   // Returns pow(this, e) % m.
   @override
   int modPow(int e, int m) {
-    if (m is! int) {
-      throw ArgumentError.value(m, 'modulus', 'not an integer');
-    }
     if (e < 0) throw RangeError.range(e, 0, null, 'exponent');
     if (m <= 0) throw RangeError.range(m, 1, null, 'modulus');
     if (e == 0) return 1;

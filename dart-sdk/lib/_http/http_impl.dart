@@ -1139,6 +1139,7 @@ class _IOSinkImpl extends _StreamSinkImpl<List<int>> implements IOSink {
   @override
   Encoding get encoding => _encoding;
 
+  @override
   set encoding(Encoding value) {
     if (!_encodingMutable) {
       throw StateError("IOSink encoding is not mutable");
@@ -1323,6 +1324,7 @@ class _HttpResponse extends _HttpOutboundMessage<HttpResponse>
 
   @override
   int get statusCode => _statusCode;
+  @override
   set statusCode(int statusCode) {
     if (_outgoing.headersWritten) throw StateError("Header already sent");
     _statusCode = statusCode;
@@ -1330,6 +1332,7 @@ class _HttpResponse extends _HttpOutboundMessage<HttpResponse>
 
   @override
   String get reasonPhrase => _findReasonPhrase(statusCode);
+  @override
   set reasonPhrase(String reasonPhrase) {
     if (_outgoing.headersWritten) throw StateError("Header already sent");
     _reasonPhrase = reasonPhrase;
@@ -1373,6 +1376,7 @@ class _HttpResponse extends _HttpOutboundMessage<HttpResponse>
   @override
   Duration? get deadline => _deadline;
 
+  @override
   set deadline(Duration? d) {
     _deadlineTimer?.cancel();
     _deadline = d;
@@ -1612,6 +1616,7 @@ class _HttpClientRequest extends _HttpOutboundMessage<HttpClientResponse>
 
   @override
   int get maxRedirects => _maxRedirects;
+  @override
   set maxRedirects(int maxRedirects) {
     if (_outgoing.headersWritten) throw StateError("Request already sent");
     _maxRedirects = maxRedirects;
@@ -1619,6 +1624,7 @@ class _HttpClientRequest extends _HttpOutboundMessage<HttpClientResponse>
 
   @override
   bool get followRedirects => _followRedirects;
+  @override
   set followRedirects(bool followRedirects) {
     if (_outgoing.headersWritten) throw StateError("Request already sent");
     _followRedirects = followRedirects;
@@ -2890,6 +2896,7 @@ class _HttpClient implements HttpClient {
 
   _HttpClient(this._context);
 
+  @override
   set idleTimeout(Duration timeout) {
     _idleTimeout = timeout;
     for (var c in _connectionTargets.values) {
@@ -2908,6 +2915,7 @@ class _HttpClient implements HttpClient {
     _badCertificateCallback = callback;
   }
 
+  @override
   set keyLog(Function(String line)? callback) {
     _keyLog = callback;
   }
@@ -3038,6 +3046,7 @@ class _HttpClient implements HttpClient {
     );
   }
 
+  @override
   set connectionFactory(
     Future<ConnectionTask<Socket>> Function(
       Uri url,
@@ -3660,6 +3669,7 @@ class _HttpServer extends Stream<HttpRequest>
   @override
   Duration? get idleTimeout => _idleTimeout;
 
+  @override
   set idleTimeout(Duration? duration) {
     var idleTimer = _idleTimer;
     if (idleTimer != null) {
@@ -3958,6 +3968,7 @@ class _DetachedSocket extends Stream<Uint8List> implements Socket {
   @override
   Encoding get encoding => _socket.encoding;
 
+  @override
   set encoding(Encoding value) {
     _socket.encoding = value;
   }

@@ -45,6 +45,7 @@ class _HttpSession implements HttpSession {
   @override
   bool get isNew => _isNew;
 
+  @override
   set onTimeout(void Function()? callback) {
     _timeoutCallback = callback;
   }
@@ -135,8 +136,8 @@ class _HttpSessionManager {
   _HttpSessionManager() : _sessions = {};
 
   String createSessionId() {
-    const int KEY_LENGTH = 16; // 128 bits.
-    var data = _CryptoUtils.getRandomBytes(KEY_LENGTH);
+    const int keyLength = 16; // 128 bits.
+    var data = _CryptoUtils.getRandomBytes(keyLength);
     return _CryptoUtils.bytesToHex(data);
   }
 

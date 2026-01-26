@@ -488,10 +488,12 @@ mixin _IntListMixin implements List<int> {
   @override
   List<R> cast<R>() => List.castFrom<int, R>(this);
 
+  @override
   set first(int value) {
     this[0] = value;
   }
 
+  @override
   set last(int value) {
     this[length - 1] = value;
   }
@@ -659,7 +661,7 @@ mixin _IntListMixin implements List<int> {
 
   @override
   int singleWhere(bool Function(int element) test, {int Function()? orElse}) {
-    var result;
+    int result;
     bool foundMatching = false;
     final length = this.length;
     for (var i = 0; i < length; ++i) {
@@ -1950,10 +1952,12 @@ mixin _DoubleListMixin implements List<double> {
   @override
   List<R> cast<R>() => List.castFrom<double, R>(this);
 
+  @override
   set first(double value) {
     this[0] = value;
   }
 
+  @override
   set last(double value) {
     this[length - 1] = value;
   }
@@ -2122,7 +2126,7 @@ mixin _DoubleListMixin implements List<double> {
 
   @override
   double singleWhere(bool Function(double element) test, {double Function()? orElse}) {
-    var result;
+    double result;
     bool foundMatching = false;
     final length = this.length;
     for (var i = 0; i < length; ++i) {

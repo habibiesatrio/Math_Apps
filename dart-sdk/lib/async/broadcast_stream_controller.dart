@@ -109,6 +109,7 @@ abstract class _BroadcastStreamController<T>
     );
   }
 
+  @override
   set onPause(void Function()? onPauseHandler) {
     throw UnsupportedError(
       "Broadcast stream controllers do not support pause callbacks",
@@ -122,6 +123,7 @@ abstract class _BroadcastStreamController<T>
     );
   }
 
+  @override
   set onResume(void Function()? onResumeHandler) {
     throw UnsupportedError(
       "Broadcast stream controllers do not support pause callbacks",

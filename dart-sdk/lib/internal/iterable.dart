@@ -191,8 +191,6 @@ abstract class ListIterable<E> extends EfficientLengthIterable<E>
     }
   }
 
-  @override
-  Iterable<E> where(bool Function(E element) test) => super.where(test);
 
   @override
   Iterable<T> map<T>(T Function(E element) toElement) =>
@@ -228,15 +226,11 @@ abstract class ListIterable<E> extends EfficientLengthIterable<E>
   @override
   Iterable<E> skip(int count) => SubListIterable<E>(this, count, null);
 
-  @override
-  Iterable<E> skipWhile(bool Function(E element) test) => super.skipWhile(test);
 
   @override
   Iterable<E> take(int count) =>
       SubListIterable<E>(this, 0, checkNotNullable(count, "count"));
 
-  @override
-  Iterable<E> takeWhile(bool Function(E element) test) => super.takeWhile(test);
 
   @override
   List<E> toList({bool growable = true}) =>

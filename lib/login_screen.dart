@@ -15,11 +15,28 @@ class _LoginScreenState extends State<LoginScreen> {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
-    // Simpan data login untuk scoring (contoh sederhana)
-    print('Username: $username, Password: $password');
+    // Default credentials
+    const String defaultUsername = 'admin';
+    const String defaultPassword = 'admin123';
 
-    // Tambahkan logika autentikasi di sini
-    // Misalnya, validasi username/password atau integrasi dengan Firebase
+    if (username.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Username dan password tidak boleh kosong'),
+        ),
+      );
+      return;
+    }
+
+    if (username == defaultUsername && password == defaultPassword) {
+      // Login berhasil
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      // Login gagal
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Username atau password salah')),
+      );
+    }
   }
 
   @override

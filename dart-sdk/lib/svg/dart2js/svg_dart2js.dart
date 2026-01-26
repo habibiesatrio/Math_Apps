@@ -1922,7 +1922,7 @@ class LengthList extends JavaScriptObject
 
   @override
   Length get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('Length', '#[0]', this);
     }
     throw StateError("No elements");
@@ -2676,7 +2676,7 @@ class StringList extends JavaScriptObject
 
   @override
   String get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('String', '#[0]', this);
     }
     throw StateError("No elements");
@@ -2815,7 +2815,7 @@ class SvgElement extends Element implements GlobalEventHandlers, NoncedElement {
       validator: validator,
       treeSanitizer: treeSanitizer,
     );
-    return fragment.nodes.whereType<SvgElement>().single as SvgElement;
+    return fragment.nodes.whereType<SvgElement>().single;
   }
 
   @override
@@ -2859,7 +2859,7 @@ class SvgElement extends Element implements GlobalEventHandlers, NoncedElement {
     NodeTreeSanitizer? treeSanitizer,
   }) {
     if (treeSanitizer == null) {
-      validator ??= new NodeValidatorBuilder.common()..allowSvg();
+      validator ??= NodeValidatorBuilder.common()..allowSvg();
       treeSanitizer = NodeTreeSanitizer(validator);
     }
 
@@ -3702,7 +3702,7 @@ class TransformList extends JavaScriptObject
 
   @override
   Transform get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('Transform', '#[0]', this);
     }
     throw StateError("No elements");

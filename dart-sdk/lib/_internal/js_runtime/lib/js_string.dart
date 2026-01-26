@@ -409,8 +409,8 @@ final class JSString extends Interceptor
     checkNull(pattern);
     if (start == null) {
       start = length;
-    } else if (start < 0 || start > this.length) {
-    throw RangeError.range(start, 0, this.length);
+    } else if (start < 0 || start > length) {
+    throw RangeError.range(start, 0, length);
   }
     if (pattern is String) {
       String other = pattern;

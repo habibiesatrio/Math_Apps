@@ -153,14 +153,6 @@ _postResponse(
   ServiceExtensionResponse response,
   bool traceService,
 ) {
-  if (id == null) {
-    if (traceService) {
-      print("vm-service: posting no response for request");
-    }
-    // No id -> no response.
-    replyPort.send(null);
-    return;
-  }
   StringBuffer sb = StringBuffer();
   sb.write('{"jsonrpc":"2.0",');
   if (response.isError()) {

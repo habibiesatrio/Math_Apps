@@ -10,7 +10,7 @@ abstract final class _MicrotaskMirrorQueue {
   // `DartUtils::PrepareAsyncLibrary` when the CLI flag `--profile-microtasks`
   // is set.
   @pragma("vm:entry-point", !bool.fromEnvironment("dart.vm.product"))
-  static final bool _shouldProfileMicrotasks = false;
+  static const bool _shouldProfileMicrotasks = false;
 
   @pragma("vm:external-name", "MicrotaskMirrorQueue_onScheduleAsyncCallback")
   external static void _onScheduleAsyncCallback();
@@ -74,7 +74,7 @@ class _AsyncRun {
   }
 }
 
-typedef _ScheduleImmediateClosure = void Function(void callback());
+typedef _ScheduleImmediateClosure = void Function(void Function() callback);
 
 class _ScheduleImmediate {
   static _ScheduleImmediateClosure? _closure;

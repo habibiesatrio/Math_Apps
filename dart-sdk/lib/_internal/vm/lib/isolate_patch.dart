@@ -722,7 +722,7 @@ final class Isolate {
   external static Never _exit(SendPort? finalMessagePort, Object? message);
 
   @pragma("vm:entry-point")
-  static final bool _mayExit = true;
+  static const bool _mayExit = true;
 
   @patch
   static Never exit([SendPort? finalMessagePort, Object? message]) {

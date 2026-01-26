@@ -112,8 +112,6 @@ class _UnicodeSubsetEncoder extends Converter<String, List<int>> {
   }
 
   // Override the base-class' bind, to provide a better type.
-  @override
-  Stream<List<int>> bind(Stream<String> stream) => super.bind(stream);
 }
 
 /// Converts strings of only ASCII characters to bytes.
@@ -218,8 +216,6 @@ abstract class _UnicodeSubsetDecoder extends Converter<List<int>, String> {
   ByteConversionSink startChunkedConversion(Sink<String> sink);
 
   // Override the base-class's bind, to provide a better type.
-  @override
-  Stream<String> bind(Stream<List<int>> stream) => super.bind(stream);
 }
 
 /// Converts ASCII bytes to string.

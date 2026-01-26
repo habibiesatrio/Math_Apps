@@ -173,7 +173,6 @@ class _RegExp implements RegExp {
 
   Iterable<RegExpMatch> allMatches(String string, [int start = 0]) {
     // TODO: Remove these null checks once all code is opted into strong nonnullable mode.
-    if (start == null) throw ArgumentError.notNull('start');
     if (0 > start || start > string.length) {
       throw RangeError.range(start, 0, string.length);
     }
@@ -182,7 +181,6 @@ class _RegExp implements RegExp {
 
   RegExpMatch? matchAsPrefix(String string, [int start = 0]) {
     // TODO: Remove these null checks once all code is opted into strong nonnullable mode.
-    if (start == null) throw ArgumentError.notNull('start');
     if (start < 0 || start > string.length) {
       throw RangeError.range(start, 0, string.length);
     }

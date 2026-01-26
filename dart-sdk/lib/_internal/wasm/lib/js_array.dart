@@ -500,6 +500,7 @@ class JSArrayImpl<T extends JSAny?> implements List<T> {
   @override
   int get length => js.JS<double>('a => a.length', toExternRef).toInt();
 
+  @override
   set length(int newLength) {
     RangeErrorUtils.checkNotNegative(newLength, "length");
     js.JS<void>(
@@ -595,6 +596,7 @@ class JSArrayImpl<T extends JSAny?> implements List<T> {
     return -1;
   }
 
+  @override
   set first(T element) {
     if (isEmpty) {
       throw IterableElementError.noElement();
@@ -602,6 +604,7 @@ class JSArrayImpl<T extends JSAny?> implements List<T> {
     this[0] = element;
   }
 
+  @override
   set last(T element) {
     if (isEmpty) {
       throw IterableElementError.noElement();

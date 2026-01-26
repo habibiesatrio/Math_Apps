@@ -278,7 +278,6 @@ class HttpDate {
     int toInt(String s) {
       int index = 0;
       for (; index < s.length && isDigit(s[index]); index++) {
-        ;
       }
       return int.parse(s.substring(0, index));
     }

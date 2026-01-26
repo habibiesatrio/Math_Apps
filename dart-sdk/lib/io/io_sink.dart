@@ -295,6 +295,7 @@ class _IOSinkImpl extends _StreamSinkImpl<List<int>> implements IOSink {
   @override
   Encoding get encoding => _encoding;
 
+  @override
   set encoding(Encoding value) {
     if (!_encodingMutable) {
       throw StateError("IOSink encoding is not mutable");

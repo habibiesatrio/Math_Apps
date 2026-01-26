@@ -55,8 +55,6 @@
 library dart.mirrors;
 
 import "dart:core";
-import 'dart:async' show Future;
-import "dart:_internal" show Since;
 
 /// Error thrown when trying to instantiate an abstract class.
 class AbstractClassInstantiationError extends Error {

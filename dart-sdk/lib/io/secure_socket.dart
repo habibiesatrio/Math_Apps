@@ -778,6 +778,7 @@ class _RawSecureSocket extends Stream<RawSocketEvent>
   bool get _closedReadEventSent =>
       (_socket as _RawSocketBase)._closedReadEventSent;
 
+  @override
   set _owner(owner) {
     (_socket as _RawSocketBase)._owner = owner;
   }
@@ -842,6 +843,7 @@ class _RawSecureSocket extends Stream<RawSocketEvent>
   @override
   bool get writeEventsEnabled => _writeEventsEnabled;
 
+  @override
   set writeEventsEnabled(bool value) {
     _writeEventsEnabled = value;
     if (value) {
@@ -852,6 +854,7 @@ class _RawSecureSocket extends Stream<RawSocketEvent>
   @override
   bool get readEventsEnabled => _readEventsEnabled;
 
+  @override
   set readEventsEnabled(bool value) {
     _readEventsEnabled = value;
     _scheduleReadEvent();

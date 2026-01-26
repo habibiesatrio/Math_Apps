@@ -138,8 +138,6 @@ final class Utf8Encoder extends Converter<String, List<int>> {
   }
 
   // Override the base-classes bind, to provide a better type.
-  @override
-  Stream<List<int>> bind(Stream<String> stream) => super.bind(stream);
 }
 
 /// This class encodes Strings to UTF-8 code units (unsigned 8 bit integers).
@@ -376,8 +374,6 @@ final class Utf8Decoder extends Converter<List<int>, String> {
   }
 
   // Override the base-classes bind, to provide a better type.
-  @override
-  Stream<String> bind(Stream<List<int>> stream) => super.bind(stream);
 
   @override
   external Converter<List<int>, T> fuse<T>(Converter<String, T> next);

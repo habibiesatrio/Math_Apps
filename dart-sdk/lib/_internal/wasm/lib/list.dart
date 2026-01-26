@@ -616,6 +616,7 @@ class GrowableList<E> extends _ModifiableList<E> {
 
   int get _capacity => _data.length;
 
+  @override
   set length(int newLength) {
     if (newLength > length) {
       // Verify that element type is nullable.

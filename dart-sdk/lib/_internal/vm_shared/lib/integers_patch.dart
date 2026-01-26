@@ -116,7 +116,7 @@ class int {
     return _parse(unsafeCast<_StringBase>(source), radix, _kNull);
   }
 
-  static void _kNull(_) => null;
+  static void _kNull(_) {}
 
   static int? _handleFormatError(
     int? Function(String)? onError,

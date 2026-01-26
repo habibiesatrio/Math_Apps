@@ -21,7 +21,7 @@ class FilteredElementList extends ListBase<Element> implements NodeListWrapper {
   // We can't memoize this, since it's possible that children will be messed
   // with externally to this class.
   Iterable<Element> get _iterable =>
-      _childNodes.whereType<Element>().map<Element>((n) => n as Element);
+      _childNodes.whereType<Element>().map<Element>((n) => n);
   List<Element> get _filtered =>
       List<Element>.from(_iterable, growable: false);
 
@@ -98,9 +98,11 @@ class FilteredElementList extends ListBase<Element> implements NodeListWrapper {
 
   @override
   void removeRange(int start, int end) {
-    List<Element>.from(
+    for (var el in List<Element>.from(
       _iterable.skip(start).take(end - start),
-    ).forEach((el) => el.remove());
+    )) {
+      el.remove();
+    }
   }
 
   @override

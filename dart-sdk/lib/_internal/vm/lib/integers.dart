@@ -302,10 +302,6 @@ abstract final class _IntegerImplementation implements int {
   @override
   num clamp(num lowerLimit, num upperLimit) {
     // TODO: Remove these null checks once all code is opted into strong nonnullable mode.
-    if (upperLimit == null) {
-      throw ArgumentError.notNull("upperLimit");
-    }
-    // Special case for integers.
     if (lowerLimit is int && upperLimit is int && lowerLimit <= upperLimit) {
       if (this < lowerLimit) return lowerLimit;
       if (this > upperLimit) return upperLimit;
@@ -437,9 +433,6 @@ abstract final class _IntegerImplementation implements int {
   @override
   int modPow(int e, int m) {
     // TODO: Remove these null checks once all code is opted into strong nonnullable mode.
-    if (m == null) {
-      throw ArgumentError.notNull("modulus");
-    }
     if (e < 0) throw RangeError.range(e, 0, null, "exponent");
     if (m <= 0) throw RangeError.range(m, 1, null, "modulus");
     if (e == 0) return 1;

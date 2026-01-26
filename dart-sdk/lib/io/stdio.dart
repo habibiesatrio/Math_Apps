@@ -414,6 +414,7 @@ class _StdSink implements IOSink {
 
   @override
   Encoding get encoding => _sink.encoding;
+  @override
   set encoding(Encoding encoding) {
     _sink.encoding = encoding;
   }

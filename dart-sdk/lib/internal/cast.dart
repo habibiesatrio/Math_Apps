@@ -125,6 +125,7 @@ abstract class _CastListBase<S, T> extends _CastIterableBase<S, T>
     _source[index] = value as S;
   }
 
+  @override
   set length(int length) {
     _source.length = length;
   }

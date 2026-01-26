@@ -9671,9 +9671,7 @@ class DedicatedWorkerGlobalScope extends WorkerGlobalScope {
   @SupportedBrowser(SupportedBrowser.SAFARI)
   void _webkitRequestFileSystem(
     int type,
-    int size, [
-    _ErrorCallback? errorCallback,
-  ]) native;
+    int size) native;
 
   @JSName('webkitRequestFileSystemSync')
   @SupportedBrowser(SupportedBrowser.CHROME)
@@ -11023,7 +11021,7 @@ class DocumentFragment extends Node
   List<Element>? _docChildren;
 
   List<Element> get children {
-    _docChildren ??= new FilteredElementList(this);
+    _docChildren ??= FilteredElementList(this);
     return _docChildren!;
   }
 
@@ -13440,7 +13438,7 @@ class Element extends Node
       treeSanitizer: treeSanitizer,
     );
 
-    return fragment.nodes.whereType<Element>().single as Element;
+    return fragment.nodes.whereType<Element>().single;
   }
 
   /// Creates the HTML element specified by the tag name.
@@ -14146,7 +14144,7 @@ class Element extends Node
         parentNode!.insertBefore(node, this);
         break;
       case 'afterbegin':
-        var first = this.nodes.isNotEmpty ? nodes[0] : null;
+        var first = nodes.isNotEmpty ? nodes[0] : null;
         insertBefore(node, first);
         break;
       case 'beforeend':
@@ -14307,7 +14305,7 @@ class Element extends Node
     bool sameAsParent = identical(current, parent);
     bool foundAsParent = sameAsParent || parent.tagName == 'HTML';
     if (current == null || sameAsParent) {
-      if (foundAsParent) return Point(0, 0);
+      if (foundAsParent) return const Point(0, 0);
       throw ArgumentError(
         "Specified element is not a transitive offset "
         "parent of this element.",
@@ -14348,7 +14346,7 @@ class Element extends Node
   }) {
     if (treeSanitizer == null) {
       if (validator == null) {
-        _defaultValidator ??= new NodeValidatorBuilder.common();
+        _defaultValidator ??= NodeValidatorBuilder.common();
         validator = _defaultValidator;
       }
       if (_defaultSanitizer == null) {
@@ -21086,7 +21084,7 @@ class Location extends JavaScriptObject implements LocationBase {
     if (JS('bool', '("origin" in #)', this)) {
       return JS('String', '#.origin', this);
     }
-    return '${protocol}//${host}';
+    return '$protocol//$host';
   }
 
   @override
@@ -22839,7 +22837,7 @@ class MimeTypeArray extends JavaScriptObject
 
   @override
   MimeType get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('MimeType', '#[0]', this);
     }
     throw StateError("No elements");
@@ -24354,7 +24352,7 @@ class NodeList extends JavaScriptObject
 
   @override
   Node get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('Node', '#[0]', this);
     }
     throw StateError("No elements");
@@ -26497,7 +26495,7 @@ class PluginArray extends JavaScriptObject
 
   @override
   Plugin get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('Plugin', '#[0]', this);
     }
     throw StateError("No elements");
@@ -29046,9 +29044,7 @@ class SharedWorkerGlobalScope extends WorkerGlobalScope {
   @SupportedBrowser(SupportedBrowser.SAFARI)
   void _webkitRequestFileSystem(
     int type,
-    int size, [
-    _ErrorCallback? errorCallback,
-  ]) native;
+    int size) native;
 
   @JSName('webkitRequestFileSystemSync')
   @SupportedBrowser(SupportedBrowser.CHROME)
@@ -29355,7 +29351,7 @@ class SpeechGrammarList extends JavaScriptObject
 
   @override
   SpeechGrammar get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('SpeechGrammar', '#[0]', this);
     }
     throw StateError("No elements");
@@ -31000,7 +30996,7 @@ class TextTrackCueList extends JavaScriptObject
 
   @override
   TextTrackCue get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('TextTrackCue', '#[0]', this);
     }
     throw StateError("No elements");
@@ -31081,7 +31077,7 @@ class TextTrackList extends EventTarget
 
   @override
   TextTrack get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('TextTrack', '#[0]', this);
     }
     throw StateError("No elements");
@@ -31346,7 +31342,7 @@ class TouchList extends JavaScriptObject
 
   @override
   Touch get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('Touch', '#[0]', this);
     }
     throw StateError("No elements");
@@ -34179,16 +34175,12 @@ class Window extends EventTarget
   @override
   @JSName('setInterval')
   int _setInterval_String(
-    String handler, [
-    Object? arguments,
-  ]) native;
+    String handler) native;
 
   @override
   @JSName('setTimeout')
   int _setTimeout_String(
-    String handler, [
-    Object? arguments,
-  ]) native;
+    String handler) native;
 
   @override
   @JSName('clearInterval')
@@ -34763,16 +34755,12 @@ class WorkerGlobalScope extends EventTarget
   @override
   @JSName('setInterval')
   int _setInterval_String(
-    String handler, [
-    Object? arguments,
-  ]) native;
+    String handler) native;
 
   @override
   @JSName('setTimeout')
   int _setTimeout_String(
-    String handler, [
-    Object? arguments,
-  ]) native;
+    String handler) native;
 
   @override
   @JSName('clearInterval')
@@ -35278,7 +35266,7 @@ class _CssRuleList extends JavaScriptObject
 
   @override
   CssRule get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('CssRule', '#[0]', this);
     }
     throw StateError("No elements");
@@ -36141,7 +36129,7 @@ class _StyleSheetList extends JavaScriptObject
 
   @override
   StyleSheet get first {
-    if (this.isNotEmpty) {
+    if (isNotEmpty) {
       return JS('StyleSheet', '#[0]', this);
     }
     throw StateError("No elements");
@@ -36492,9 +36480,9 @@ abstract class _WindowTimers extends JavaScriptObject {
     throw UnsupportedError("Not supported");
   }
 
-  int _setInterval_String(String handler, [Object? arguments]);
+  int _setInterval_String(String handler);
 
-  int _setTimeout_String(String handler, [Object? arguments]);
+  int _setTimeout_String(String handler);
 
   void _clearInterval();
 
@@ -40124,7 +40112,7 @@ class NodeValidatorBuilder implements NodeValidator {
   /// The UriPolicy can be used to restrict the locations the navigation elements
   /// are allowed to direct to. By default this will use the default [UriPolicy].
   void allowNavigation([UriPolicy? uriPolicy]) {
-    uriPolicy ??= new UriPolicy();
+    uriPolicy ??= UriPolicy();
     add(_SimpleNodeValidator.allowNavigation(uriPolicy));
   }
 
@@ -40133,7 +40121,7 @@ class NodeValidatorBuilder implements NodeValidator {
   /// The UriPolicy can be used to restrict the locations the images may be
   /// loaded from. By default this will use the default [UriPolicy].
   void allowImages([UriPolicy? uriPolicy]) {
-    uriPolicy ??= new UriPolicy();
+    uriPolicy ??= UriPolicy();
     add(_SimpleNodeValidator.allowImages(uriPolicy));
   }
 
@@ -40210,7 +40198,7 @@ class NodeValidatorBuilder implements NodeValidator {
     var uriAttrs = uriAttributes?.map<String>(
       (name) => '$tagNameUpper::${name.toLowerCase()}',
     );
-    uriPolicy ??= new UriPolicy();
+    uriPolicy ??= UriPolicy();
 
     add(
       _CustomElementNodeValidator(
@@ -40245,7 +40233,7 @@ class NodeValidatorBuilder implements NodeValidator {
     var uriAttrs = uriAttributes?.map<String>(
       (name) => '$baseNameUpper::${name.toLowerCase()}',
     );
-    uriPolicy ??= new UriPolicy();
+    uriPolicy ??= UriPolicy();
 
     add(
       _CustomElementNodeValidator(
@@ -40304,9 +40292,9 @@ class NodeValidatorBuilder implements NodeValidator {
 }
 
 class _SimpleNodeValidator implements NodeValidator {
-  final Set<String> allowedElements = Set<String>();
+  final Set<String> allowedElements = <String>{};
   final Set<String> allowedAttributes = <String>{};
-  final Set<String> allowedUriAttributes = Set<String>();
+  final Set<String> allowedUriAttributes = <String>{};
   final UriPolicy? uriPolicy;
 
   factory _SimpleNodeValidator.allowNavigation(UriPolicy uriPolicy) {
@@ -41339,7 +41327,7 @@ class KeyEvent extends _WrappedEvent implements KeyboardEvent {
     setDispatchProperty(eventObj, _keyboardEventDispatchRecord);
 
     var keyEvent = KeyEvent.wrap(eventObj);
-    keyEvent._currentTarget ??= currentTarget == null ? window : currentTarget;
+    keyEvent._currentTarget ??= currentTarget ?? window;
     return keyEvent;
   }
 
