@@ -77,7 +77,12 @@ class _SawInputScreenState extends State<SawInputScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SawResultScreen(results: results),
+        builder: (context) => SawResultScreen(
+          results: results,
+          criteria: _criteria,
+          alternatives:
+              updatedAlternatives, // Pass the alternatives with their input values
+        ),
       ),
     );
   }
@@ -97,19 +102,29 @@ class _SawInputScreenState extends State<SawInputScreen> {
             _buildSectionTitle('1. Tambah Kriteria'),
             TextField(
               controller: _criteriaNameController,
-              decoration: const InputDecoration(labelText: 'Nama Kriteria (e.g., Harga)'),
+              decoration: const InputDecoration(
+                labelText: 'Nama Kriteria (e.g., Harga)',
+              ),
             ),
             TextField(
               controller: _criteriaWeightController,
-              decoration: const InputDecoration(labelText: 'Bobot (e.g., 0.25)'),
+              decoration: const InputDecoration(
+                labelText: 'Bobot (e.g., 0.25)',
+              ),
               keyboardType: TextInputType.number,
             ),
             DropdownButton<CriteriaType>(
               value: _selectedCriteriaType,
               isExpanded: true,
               items: const [
-                DropdownMenuItem(value: CriteriaType.benefit, child: Text('Benefit (Makin besar makin baik)')),
-                DropdownMenuItem(value: CriteriaType.cost, child: Text('Cost (Makin kecil makin baik)')),
+                DropdownMenuItem(
+                  value: CriteriaType.benefit,
+                  child: Text('Benefit (Makin besar makin baik)'),
+                ),
+                DropdownMenuItem(
+                  value: CriteriaType.cost,
+                  child: Text('Cost (Makin kecil makin baik)'),
+                ),
               ],
               onChanged: (value) {
                 if (value != null) {
@@ -120,7 +135,10 @@ class _SawInputScreenState extends State<SawInputScreen> {
               },
             ),
             const SizedBox(height: 12),
-            ElevatedButton(onPressed: _addCriteria, child: const Text('Tambah Kriteria')),
+            ElevatedButton(
+              onPressed: _addCriteria,
+              child: const Text('Tambah Kriteria'),
+            ),
             if (_criteria.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -133,10 +151,15 @@ class _SawInputScreenState extends State<SawInputScreen> {
             _buildSectionTitle('2. Tambah Alternatif'),
             TextField(
               controller: _alternativeNameController,
-              decoration: const InputDecoration(labelText: 'Nama Alternatif (e.g., Siswa A)'),
+              decoration: const InputDecoration(
+                labelText: 'Nama Alternatif (e.g., Siswa A)',
+              ),
             ),
             const SizedBox(height: 12),
-            ElevatedButton(onPressed: _addAlternative, child: const Text('Tambah Alternatif')),
+            ElevatedButton(
+              onPressed: _addAlternative,
+              child: const Text('Tambah Alternatif'),
+            ),
             const Divider(height: 30),
             _buildSectionTitle('3. Input Nilai'),
             if (_criteria.isNotEmpty && _alternatives.isNotEmpty)
@@ -145,38 +168,48 @@ class _SawInputScreenState extends State<SawInputScreen> {
                 child: DataTable(
                   columns: [
                     const DataColumn(label: Text('Alternatif')),
-                    ..._criteria.map((c) => DataColumn(label: Text('${c.name}\n(${c.id})'))),
+                    ..._criteria.map(
+                      (c) => DataColumn(label: Text('${c.name}\n(${c.id})')),
+                    ),
                   ],
                   rows: _alternatives.map((alt) {
-                    return DataRow(cells: [
-                      DataCell(Text(alt.name)),
-                      ..._criteria.map((crit) {
-                        return DataCell(
-                          SizedBox(
-                            width: 80,
-                            child: TextField(
-                              controller: _valueControllers['${alt.name}-${crit.id}'],
-                              keyboardType: TextInputType.number,
-                              textAlign: TextAlign.center,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
+                    return DataRow(
+                      cells: [
+                        DataCell(Text(alt.name)),
+                        ..._criteria.map((crit) {
+                          return DataCell(
+                            SizedBox(
+                              width: 80,
+                              child: TextField(
+                                controller:
+                                    _valueControllers['${alt.name}-${crit.id}'],
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }),
-                    ]);
+                          );
+                        }),
+                      ],
+                    );
                   }).toList(),
                 ),
               ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: (_criteria.isNotEmpty && _alternatives.isNotEmpty) ? _calculate : null,
+              onPressed: (_criteria.isNotEmpty && _alternatives.isNotEmpty)
+                  ? _calculate
+                  : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: const Text('Hitung & Lihat Hasil', style: TextStyle(fontSize: 16)),
+              child: const Text(
+                'Hitung & Lihat Hasil',
+                style: TextStyle(fontSize: 16),
+              ),
             ),
           ],
         ),
@@ -189,7 +222,9 @@ class _SawInputScreenState extends State<SawInputScreen> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+        style: Theme.of(
+          context,
+        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }

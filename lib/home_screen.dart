@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'saw_input_screen.dart';
 import 'math_learning_menu_screen.dart';
+import 'leaderboard_screen.dart'; // Import the new screen
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,6 +11,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Math Apps'),
+        backgroundColor: Colors.indigo,
       ),
       body: Center(
         child: Padding(
@@ -20,24 +22,45 @@ class HomeScreen extends StatelessWidget {
             children: [
               _buildMenuButton(
                 context: context,
-                icon: Icons.calculate,
-                label: 'Mulai Perankingan (SPK)',
+                icon: Icons.school,
+                label: 'Belajar Matematika',
+                color: Colors.indigo,
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const SawInputScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const MathLearningMenuScreen(),
+                    ),
                   );
                 },
               ),
               const SizedBox(height: 20),
               _buildMenuButton(
                 context: context,
-                icon: Icons.school,
-                label: 'Belajar Matematika',
+                icon: Icons.leaderboard,
+                label: 'Papan Peringkat',
+                color: Colors.amber.shade800,
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MathLearningMenuScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const LeaderboardScreen(),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              _buildMenuButton(
+                context: context,
+                icon: Icons.calculate,
+                label: 'Perankingan Siswa (SAW)',
+                color: Colors.blueGrey,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SawInputScreen(),
+                    ),
                   );
                 },
               ),
@@ -52,6 +75,7 @@ class HomeScreen extends StatelessWidget {
     required BuildContext context,
     required IconData icon,
     required String label,
+    required Color color,
     required VoidCallback onPressed,
   }) {
     return ElevatedButton.icon(
@@ -59,8 +83,11 @@ class HomeScreen extends StatelessWidget {
       icon: Icon(icon, size: 28),
       label: Text(label, style: const TextStyle(fontSize: 16)),
       style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(vertical: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 4,
       ),
     );
   }

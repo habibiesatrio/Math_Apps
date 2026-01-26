@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'firebase_service.dart';
+import 'app_state.dart';
 
 class MathLearningTrigonometryScreen extends StatefulWidget {
   const MathLearningTrigonometryScreen({super.key});
@@ -11,31 +13,36 @@ class MathLearningTrigonometryScreen extends StatefulWidget {
 
 class _MathLearningTrigonometryScreenState
     extends State<MathLearningTrigonometryScreen> {
-  // State for Quiz
+  // Services and State
+  final FirebaseService _firebaseService = FirebaseService();
+  final AppState _appState = AppState();
+  final _userNameController = TextEditingController();
+
+  // Quiz State
   final _userAnswerController = TextEditingController();
   String _quizQuestion = '-';
   String _correctAnswer = '-';
   String _feedbackMessage = '';
   bool _isQuizActive = false;
 
-  // Map of special angles and their sine values
   final Map<int, String> _specialAngles = {
     0: '0',
-    30: '0.5', // sin(30) = 1/2
-    45: '0.707', // sin(45) = 1/√2 ≈ 0.707
-    60: '0.866', // sin(60) = √3/2 ≈ 0.866
+    30: '0.5',
+    45: '0.707',
+    60: '0.866',
     90: '1',
   };
 
   @override
   void dispose() {
     _userAnswerController.dispose();
+    _userNameController.dispose();
     super.dispose();
   }
 
+  // --- LOGIC ---
   void _generateQuestion() {
     final random = Random();
-    // Select a random angle from the special angles list
     final angles = _specialAngles.keys.toList();
     int angle = angles[random.nextInt(angles.length)];
 
@@ -49,18 +56,62 @@ class _MathLearningTrigonometryScreenState
     });
   }
 
-  void _checkAnswer() {
+  Future<void> _checkAnswer() async {
+    if (_appState.userName.isEmpty) {
+      await _promptForUserName();
+      if (_appState.userName.isEmpty) return;
+    }
+
     final userAnswer = _userAnswerController.text.trim();
-    setState(() {
-      if (userAnswer == _correctAnswer) {
-        _feedbackMessage = 'Benar! Jawabannya adalah $_correctAnswer.';
-      } else {
+    bool isCorrect = userAnswer == _correctAnswer;
+
+    if (isCorrect) {
+      setState(() {
+        _feedbackMessage =
+            'Benar! Jawabannya adalah $_correctAnswer. Poin ditambahkan!';
+      });
+      await _firebaseService.updateUserScore(
+        _appState.userName,
+        'Trigonometri',
+      );
+    } else {
+      setState(() {
         _feedbackMessage =
             'Salah. Jawaban yang benar adalah $_correctAnswer. Coba lagi!';
-      }
-    });
+      });
+    }
   }
 
+  Future<void> _promptForUserName() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Masukkan Nama Anda'),
+          content: TextField(
+            controller: _userNameController,
+            decoration: const InputDecoration(
+              hintText: "Nama untuk papan peringkat",
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Simpan'),
+              onPressed: () {
+                if (_userNameController.text.trim().isNotEmpty) {
+                  _appState.userName = _userNameController.text.trim();
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // --- UI WIDGETS ---
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,10 +124,10 @@ class _MathLearningTrigonometryScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildStaticContent(), // The original content
+            _buildStaticContent(),
             const Divider(height: 40, thickness: 2),
             _buildSectionTitle('Latihan Soal', context),
-            _buildQuizSection(), // The new interactive quiz section
+            _buildQuizSection(),
           ],
         ),
       ),
@@ -117,7 +168,7 @@ class _MathLearningTrigonometryScreenState
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
-                      width: 200, // Limit width of the text field
+                      width: 200,
                       child: TextField(
                         controller: _userAnswerController,
                         keyboardType: const TextInputType.numberWithOptions(
@@ -146,8 +197,8 @@ class _MathLearningTrigonometryScreenState
                           style: TextStyle(
                             fontSize: 15,
                             color: _feedbackMessage.startsWith('Benar')
-                                ? Colors.green
-                                : Colors.red,
+                                ? Colors.green.shade800
+                                : Colors.red.shade800,
                             fontWeight: FontWeight.w500,
                           ),
                           textAlign: TextAlign.center,

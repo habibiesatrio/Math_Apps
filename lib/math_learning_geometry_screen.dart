@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'firebase_service.dart';
+import 'app_state.dart';
 
 class MathLearningGeometryScreen extends StatefulWidget {
   const MathLearningGeometryScreen({super.key});
@@ -11,7 +13,12 @@ class MathLearningGeometryScreen extends StatefulWidget {
 
 class _MathLearningGeometryScreenState
     extends State<MathLearningGeometryScreen> {
-  // State for Quiz
+  // Services and State
+  final FirebaseService _firebaseService = FirebaseService();
+  final AppState _appState = AppState();
+  final _userNameController = TextEditingController();
+
+  // Quiz State
   final _userAnswerController = TextEditingController();
   String _quizQuestion = '-';
   int _correctAnswer = 0;
@@ -21,13 +28,14 @@ class _MathLearningGeometryScreenState
   @override
   void dispose() {
     _userAnswerController.dispose();
+    _userNameController.dispose();
     super.dispose();
   }
 
+  // --- LOGIC ---
   void _generateQuestion() {
     final random = Random();
-    // Generate a simple question about the area of a square
-    int side = random.nextInt(15) + 5; // side from 5 to 19
+    int side = random.nextInt(15) + 5;
     int area = side * side;
 
     setState(() {
@@ -40,18 +48,59 @@ class _MathLearningGeometryScreenState
     });
   }
 
-  void _checkAnswer() {
+  Future<void> _checkAnswer() async {
+    if (_appState.userName.isEmpty) {
+      await _promptForUserName();
+      if (_appState.userName.isEmpty) return;
+    }
+
     final userAnswer = int.tryParse(_userAnswerController.text.trim());
-    setState(() {
-      if (userAnswer == _correctAnswer) {
-        _feedbackMessage = 'Benar! Jawabannya adalah $_correctAnswer cm².';
-      } else {
+    bool isCorrect = userAnswer == _correctAnswer;
+
+    if (isCorrect) {
+      setState(() {
+        _feedbackMessage =
+            'Benar! Jawabannya adalah $_correctAnswer cm². Poin ditambahkan!';
+      });
+      await _firebaseService.updateUserScore(_appState.userName, 'Geometri');
+    } else {
+      setState(() {
         _feedbackMessage =
             'Salah. Jawaban yang benar adalah $_correctAnswer cm². Coba lagi!';
-      }
-    });
+      });
+    }
   }
 
+  Future<void> _promptForUserName() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Masukkan Nama Anda'),
+          content: TextField(
+            controller: _userNameController,
+            decoration: const InputDecoration(
+              hintText: "Nama untuk papan peringkat",
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Simpan'),
+              onPressed: () {
+                if (_userNameController.text.trim().isNotEmpty) {
+                  _appState.userName = _userNameController.text.trim();
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // --- UI WIDGETS ---
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,10 +113,10 @@ class _MathLearningGeometryScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildStaticContent(), // The original content
+            _buildStaticContent(),
             const Divider(height: 40, thickness: 2),
             _buildSectionTitle('Latihan Soal', context),
-            _buildQuizSection(), // The new interactive quiz section
+            _buildQuizSection(),
           ],
         ),
       ),
@@ -108,7 +157,7 @@ class _MathLearningGeometryScreenState
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
-                      width: 200, // Limit width of the text field
+                      width: 200,
                       child: TextField(
                         controller: _userAnswerController,
                         keyboardType: TextInputType.number,
@@ -135,8 +184,8 @@ class _MathLearningGeometryScreenState
                           style: TextStyle(
                             fontSize: 15,
                             color: _feedbackMessage.startsWith('Benar')
-                                ? Colors.green
-                                : Colors.red,
+                                ? Colors.green.shade800
+                                : Colors.red.shade800,
                             fontWeight: FontWeight.w500,
                           ),
                           textAlign: TextAlign.center,
@@ -151,7 +200,6 @@ class _MathLearningGeometryScreenState
     );
   }
 
-  // Extracted the original static content into its own widget for clarity
   Widget _buildStaticContent() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
