@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/criteria_model.dart'; // Assuming models are in lib/models
-import '../models/alternative_model.dart'; // Assuming models are in lib/models
-// Mengimpor halaman hasil dan service yang dibutuhkan
-import 'saw_result_screen.dart'; // Assuming this file is in the same directory
-import '../services/saw_service.dart'; // Assuming services are in lib/services
+import 'criteria_model.dart';
+import 'alternative_model.dart';
+import 'saw_result_screen.dart';
+import 'saw_service.dart';
 
 class SawInputScreen extends StatefulWidget {
   const SawInputScreen({super.key});
@@ -16,16 +15,12 @@ class _SawInputScreenState extends State<SawInputScreen> {
   final List<Criteria> _criteria = [];
   final List<Alternative> _alternatives = [];
 
-  // Controller untuk menambah kriteria baru
   final _criteriaNameController = TextEditingController();
   final _criteriaWeightController = TextEditingController();
   CriteriaType _selectedCriteriaType = CriteriaType.benefit;
 
-  // Controller untuk menambah alternatif baru
   final _alternativeNameController = TextEditingController();
 
-  // Controller untuk nilai-nilai matriks
-  // Key: 'alternativeName-criteriaId'
   final Map<String, TextEditingController> _valueControllers = {};
 
   void _addCriteria() {
@@ -52,7 +47,6 @@ class _SawInputScreenState extends State<SawInputScreen> {
     final name = _alternativeNameController.text;
     if (name.isNotEmpty) {
       setState(() {
-        // Inisialisasi nilai awal untuk alternatif baru
         final initialValues = <String, double>{};
         for (var crit in _criteria) {
           initialValues[crit.id] = 0.0;
@@ -66,7 +60,6 @@ class _SawInputScreenState extends State<SawInputScreen> {
   }
 
   void _calculate() {
-    // 1. Update nilai alternatif dari text controllers
     final updatedAlternatives = <Alternative>[];
     for (var alt in _alternatives) {
       final newValues = <String, double>{};
@@ -77,13 +70,9 @@ class _SawInputScreenState extends State<SawInputScreen> {
       updatedAlternatives.add(Alternative(name: alt.name, values: newValues));
     }
 
-    // 2. Panggil service SAW untuk perhitungan
     final sawService = SawService();
     final results = sawService.calculate(updatedAlternatives, _criteria);
 
-    // 3. Navigasi ke halaman hasil
-    // Mengganti dialog placeholder dengan navigasi sesungguhnya.
-    // Pastikan context masih valid sebelum melakukan navigasi.
     if (!mounted) return;
     Navigator.push(
       context,
@@ -105,7 +94,6 @@ class _SawInputScreenState extends State<SawInputScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // --- Form Input Kriteria ---
             _buildSectionTitle('1. Tambah Kriteria'),
             TextField(
               controller: _criteriaNameController,
@@ -133,7 +121,6 @@ class _SawInputScreenState extends State<SawInputScreen> {
             ),
             const SizedBox(height: 12),
             ElevatedButton(onPressed: _addCriteria, child: const Text('Tambah Kriteria')),
-            // --- Display Total Weight ---
             if (_criteria.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -143,8 +130,6 @@ class _SawInputScreenState extends State<SawInputScreen> {
                 ),
               ),
             const Divider(height: 30),
-
-            // --- Form Input Alternatif ---
             _buildSectionTitle('2. Tambah Alternatif'),
             TextField(
               controller: _alternativeNameController,
@@ -153,8 +138,6 @@ class _SawInputScreenState extends State<SawInputScreen> {
             const SizedBox(height: 12),
             ElevatedButton(onPressed: _addAlternative, child: const Text('Tambah Alternatif')),
             const Divider(height: 30),
-
-            // --- Tabel Input Nilai ---
             _buildSectionTitle('3. Input Nilai'),
             if (_criteria.isNotEmpty && _alternatives.isNotEmpty)
               SingleChildScrollView(
@@ -187,8 +170,6 @@ class _SawInputScreenState extends State<SawInputScreen> {
                 ),
               ),
             const SizedBox(height: 30),
-
-            // --- Tombol Hitung ---
             ElevatedButton(
               onPressed: (_criteria.isNotEmpty && _alternatives.isNotEmpty) ? _calculate : null,
               style: ElevatedButton.styleFrom(

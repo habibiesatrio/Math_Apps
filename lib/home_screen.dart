@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/saw_input_screen.dart';
-import 'screens/math_learning_menu_screen.dart';
+import 'saw_input_screen.dart';
+import 'math_learning_menu_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

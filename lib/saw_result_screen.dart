@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/alternative_model.dart'; // Assuming models are in lib/models
+import 'alternative_model.dart';
 
 class SawResultScreen extends StatelessWidget {
   final List<Alternative> results;
@@ -8,6 +8,9 @@ class SawResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Sort results in descending order based on score before displaying
+    results.sort((a, b) => b.score!.compareTo(a.score!));
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hasil Perankingan (SAW)'),
@@ -59,11 +62,10 @@ class SawResultScreen extends StatelessWidget {
     );
   }
 
-  // Helper function untuk memberikan warna berbeda pada peringkat teratas
   Color _getRankColor(int rank) {
-    if (rank == 1) return Colors.amber.shade700; // Emas
-    if (rank == 2) return Colors.grey.shade500; // Perak
-    if (rank == 3) return Colors.brown.shade400; // Perunggu
+    if (rank == 1) return Colors.amber.shade700; // Gold
+    if (rank == 2) return Colors.grey.shade500; // Silver
+    if (rank == 3) return Colors.brown.shade400; // Bronze
     return Colors.blueGrey;
   }
 }
